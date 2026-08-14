@@ -1,7 +1,7 @@
 # =================
 # 资源下载
 # =================
-FROM alpine:latest AS builder
+FROM alpine:3 AS builder
 
 RUN apk add --no-cache \
     wget \
