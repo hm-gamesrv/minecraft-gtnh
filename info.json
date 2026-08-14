@@ -24,13 +24,13 @@
         ],
         "volumes": [
             {
-                "host": "./World",
+                "host": "./minecraft-gtnh-World",
                 "container": "/app/World",
                 "required": true,
                 "desc": "游戏世界存档"
             },
             {
-                "host": "./backups",
+                "host": "./minecraft-gtnh-backups",
                 "container": "/app/backups",
                 "required": true,
                 "desc": "ServerUtilities 模组备份路径"
