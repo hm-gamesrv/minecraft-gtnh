@@ -1,0 +1,50 @@
+{
+    "schemaVersion": 1,
+    "key": "minecraft-gtnh",
+    "name": "Minecraft GTNH",
+    "registries": {
+        "ghcr": "ghcr.io/hm-gamesrv/",
+        "aliyun": "crpi-i9e7zrpnu4792a5m.cn-chengdu.personal.cr.aliyuncs.com/hiromuraki/"
+    },
+    "resources": {
+        "ports": [
+            {
+                "host": "25565",
+                "container": "25565",
+                "proto": "tcp",
+                "required": true,
+                "desc": "游戏联机端口"
+            },
+            {
+                "host": "25575",
+                "container": "25575",
+                "proto": "tcp",
+                "desc": "RCON 端口"
+            }
+        ],
+        "volumes": [
+            {
+                "host": "./World",
+                "container": "/app/World",
+                "required": true,
+                "desc": "游戏世界存档"
+            },
+            {
+                "host": "./backups",
+                "container": "/app/backups",
+                "required": true,
+                "desc": "ServerUtilities 模组备份路径"
+            }
+        ],
+        "env": [],
+        "extraArgs": ""
+    },
+    "variants": [
+        {
+            "key": "latest",
+            "name": "最新正式版",
+            "tag": "latest",
+            "container": "minecraft-gtnh-server"
+        }
+    ]
+}
