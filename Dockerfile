@@ -8,8 +8,8 @@ RUN apk add --no-cache \
     unzip
 
 WORKDIR /downloads
-RUN wget https://downloads.gtnewhorizons.com/ServerPacks/GT_New_Horizons_2.8.4_Server_Java_17-25.zip
-RUN unzip ./GT_New_Horizons_2.8.4_Server_Java_17-25.zip -d gtnh
+RUN wget -q https://downloads.gtnewhorizons.com/ServerPacks/GT_New_Horizons_2.8.4_Server_Java_17-25.zip \
+    && unzip ./GT_New_Horizons_2.8.4_Server_Java_17-25.zip -d gtnh
 
 # ===================
 # 主镜像
