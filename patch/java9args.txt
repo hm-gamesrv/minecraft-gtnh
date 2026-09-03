@@ -66,4 +66,3 @@ java.sql.rowset/javax.sql.rowset.serial=ALL-UNNAMED
 jdk.dynalink/jdk.dynalink.beans=ALL-UNNAMED
 --add-opens
 jdk.naming.dns/com.sun.jndi.dns=ALL-UNNAMED,java.naming
--javaagent:authlib-injector-1.2.8.jar=https://mcskin.dsrv.top/api/yggdrasil

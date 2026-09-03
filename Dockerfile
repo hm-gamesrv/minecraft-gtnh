@@ -1,7 +1,7 @@
 # =================
 # 资源下载
 # =================
-FROM alpine:3 AS builder
+FROM alpine:3 AS download
 
 RUN apk add --no-cache \
     wget \
@@ -9,7 +9,8 @@ RUN apk add --no-cache \
 
 WORKDIR /downloads
 RUN wget -q https://downloads.gtnewhorizons.com/ServerPacks/GT_New_Horizons_2.8.4_Server_Java_17-25.zip \
-    && unzip ./GT_New_Horizons_2.8.4_Server_Java_17-25.zip -d gtnh
+    && unzip ./GT_New_Horizons_2.8.4_Server_Java_17-25.zip -d gtnh \
+    && rm -f ./GT_New_Horizons_2.8.4_Server_Java_17-25.zip
 
 # ===================
 # 主镜像
@@ -20,7 +21,8 @@ ENV TZ=Asia/Shanghai
 
 RUN mkdir -p /app && chown 1000:1000 /app
 
-COPY --from=builder --chown=1000:1000 ["/downloads/gtnh", "/app"]
+COPY --from=download --chown=1000:1000 ["/downloads/gtnh", "/app"]
+COPY --chown=1000:1000 ["./init.sh", "/usr/local/bin/init.sh"]
 COPY --chown=1000:1000 ["./patch/", "/app"]
 
 EXPOSE 25565/tcp 25575/tcp
@@ -29,4 +31,5 @@ VOLUME [ "/app/World", "/app/backups" ]
 
 WORKDIR /app
 USER 1000:1000
+ENTRYPOINT [ "sh", "/usr/local/bin/init.sh" ]
 CMD ["bash", "/app/start-server.sh"]
