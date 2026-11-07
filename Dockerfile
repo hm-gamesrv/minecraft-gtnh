@@ -8,14 +8,18 @@ RUN apk add --no-cache \
     unzip
 
 WORKDIR /downloads
-RUN wget -q https://downloads.gtnewhorizons.com/ServerPacks/GT_New_Horizons_2.8.4_Server_Java_17-25.zip \
-    && unzip ./GT_New_Horizons_2.8.4_Server_Java_17-25.zip -d gtnh \
-    && rm -f ./GT_New_Horizons_2.8.4_Server_Java_17-25.zip
+
+# GTNH 服务端包文件名；升级版本时只改这里
+ARG SERVER_PACK=GT_New_Horizons_2.9.0_Server_Java_17-26.zip
+
+RUN wget -q "https://downloads.gtnewhorizons.com/ServerPacks/${SERVER_PACK}" \
+    && unzip "./${SERVER_PACK}" -d gtnh \
+    && rm -f "./${SERVER_PACK}"
 
 # ===================
 # 主镜像
 # ===================
-FROM eclipse-temurin:25-jre
+FROM eclipse-temurin:26-jre
 
 ENV TZ=Asia/Shanghai
 

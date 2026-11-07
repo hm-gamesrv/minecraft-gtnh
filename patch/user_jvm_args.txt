@@ -6,4 +6,7 @@
 -XX:+AlwaysPreTouch
 -XX:+UseStringDeduplication
 
+-Dfml.readTimeout=180
+-Duser.language=en
+
 -javaagent:authlib-injector-1.2.8.jar={{ JVM_AUTHLIB_INJECTOR_URL }}
