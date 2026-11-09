@@ -31,4 +31,9 @@ set_game_property online-mode "${GAME_ONLINE_MODE:-true}"
 set_game_property enable-rcon "${GAME_ENABLE_RCON:-false}"
 set_game_property rcon.password "${GAME_RCON_PASSWORD:-}"
 
+# 若 /app-override 非空，将其内容覆盖到 /app（最高优先级，覆盖环境变量对文件的修改）
+if [ -d "/app-override" ] && [ -n "$(ls -A /app-override 2>/dev/null)" ]; then
+    cp -rf "/app-override/." "/app/"
+fi
+
 exec "$@"

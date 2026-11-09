@@ -23,7 +23,8 @@ FROM eclipse-temurin:26-jre
 
 ENV TZ=Asia/Shanghai
 
-RUN mkdir -p /app && chown 1000:1000 /app
+RUN mkdir -p /app && chown 1000:1000 /app \
+    && mkdir -p /app-override && chown 1000:1000 /app-override
 
 COPY --from=download --chown=1000:1000 ["/downloads/gtnh", "/app"]
 COPY --chown=1000:1000 ["./init.sh", "/usr/local/bin/init.sh"]
@@ -31,7 +32,7 @@ COPY --chown=1000:1000 ["./patch/", "/app"]
 
 EXPOSE 25565/tcp 25575/tcp
 
-VOLUME [ "/app/World", "/app/backups" ]
+VOLUME [ "/app/World", "/app/backups", "/app/journeymap", "/app/visualprospecting", "/app-override" ]
 
 WORKDIR /app
 USER 1000:1000
