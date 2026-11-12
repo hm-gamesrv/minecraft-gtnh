@@ -16,6 +16,15 @@ RUN wget -q "https://downloads.gtnewhorizons.com/ServerPacks/${SERVER_PACK}" \
     && unzip "./${SERVER_PACK}" -d gtnh \
     && rm -f "./${SERVER_PACK}"
 
+# 附加模组；升级版本时只改这里（下载文件名即 mods 目录中的文件名）
+RUN mkdir -p ./mods \
+    && wget -q -P ./mods \
+        "https://github.com/czqwq/EZMiner/releases/download/6.4/EZMiner-6.4.jar" \
+    && wget -q -P ./mods \
+        "https://github.com/GTNewHorizons/worldedit-gtnh/releases/download/1.0.1/worldedit-1.0.1.jar" \
+    && wget -q -P ./mods \
+        "https://github.com/GTNewHorizons/DistantHorizons/releases/download/upstream-preview8-rple-biomes/DistantHorizons-upstream-preview8-rple-biomes.jar"
+
 # ===================
 # 主镜像
 # ===================
@@ -27,6 +36,7 @@ RUN mkdir -p /app && chown 1000:1000 /app \
     && mkdir -p /app-override && chown 1000:1000 /app-override
 
 COPY --from=download --chown=1000:1000 ["/downloads/gtnh", "/app"]
+COPY --from=download --chown=1000:1000 ["/downloads/mods/", "/app/mods/"]
 COPY --chown=1000:1000 ["./init.sh", "/usr/local/bin/init.sh"]
 COPY --chown=1000:1000 ["./patch/", "/app"]
 
